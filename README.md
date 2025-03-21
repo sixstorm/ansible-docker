@@ -11,7 +11,25 @@ None.
 Role Variables
 --------------
 
-None.
+```bash
+user: username
+
+prereqpackages:
+  - curl
+  - apt-transport-https
+  - ca-certificates
+  - software-properties-common
+
+dockerpackages:
+  - docker-ce
+  - docker-ce-cli
+  - containerd.io
+  - docker-compose
+
+commonpackages:
+  - neovim
+  - htop
+```
 
 Dependencies
 ------------
