@@ -1,0 +1,17 @@
+#SPDX-License-Identifier: MIT-0
+galaxy_info:
+  role_name: docker
+  author: sixstorm
+  description: Docker for Ubuntu
+  license: license (GPL-2.0-or-later, MIT, etc)
+  min_ansible_version: 2.1
+  platforms:
+    - name: ubuntu
+      versions:
+        - noble
+  galaxy_tags: 
+    - docker
+    - compose
+    - service
+
+dependencies: []

@@ -1,0 +1,56 @@
+---
+- name: Update apt
+  apt:
+    update_cache: true
+
+- name: Install pre-req packages
+  ansible.builtin.package:
+    name: "{{ prereqpackages }}"
+    state: latest
+
+- name: Import GPG Key
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+  register: dockergpgkey
+
+- name: GPG Key Results
+  ansible.builtin.debug:
+    msg: "GPG Key: {{ dockergpgkey }}"
+  when: dockergpgkey.failed is true
+
+- name: Add Docker Repo to APT
+  apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename }} stable
+    state: present
+  register: dockeraptrepoadd
+
+- name: Repo Add Results
+  ansible.builtin.debug:
+    msg: "Repo Add: {{ dockeraptrepoadd }}"
+  when: dockeraptrepoadd.failed is true
+
+- name: Update apt
+  apt:
+    update_cache: true
+  when: dockergpgkey.changed is true or dockeraptrepoadd.changed is true
+
+- name: Install Docker packages
+  ansible.builtin.package:
+    name: "{{ dockerpackages }}"
+    state: latest
+
+- name: "Add {{ user }} to Docker Group"
+  ansible.builtin.user:
+    name: "{{ user }}"
+    groups: docker
+    append: true
+
+- name: "Check {{ user }} groups"
+  ansible.builtin.shell:
+    cmd: groups "{{ user }}"
+  register: groupcheck
+
+- name: "{{ user }} Group Display"
+  ansible.builtin.debug:
+    msg: "Group Check: {{ groupcheck.stdout }}"
