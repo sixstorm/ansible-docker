@@ -1,3 +1,19 @@
-#SPDX-License-Identifier: MIT-0
 ---
-# vars file for docker
+user: username
+shell: /bin/bash
+
+prereqpackages:
+  - curl
+  - apt-transport-https
+  - ca-certificates
+  - software-properties-common
+
+dockerpackages:
+  - docker-ce
+  - docker-ce-cli
+  - containerd.io
+  - docker-compose
+
+commonpackages:
+  - neovim
+  - htop
