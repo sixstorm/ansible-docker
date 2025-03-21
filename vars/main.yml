@@ -13,7 +13,3 @@ dockerpackages:
   - docker-ce-cli
   - containerd.io
   - docker-compose
-
-commonpackages:
-  - neovim
-  - htop

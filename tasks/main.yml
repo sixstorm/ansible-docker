@@ -1,6 +1,6 @@
 ---
 - name: Update apt
-  apt:
+  ansible.builtin.apt:
     update_cache: true
 
 - name: Install pre-req packages
@@ -31,7 +31,7 @@
   when: dockeraptrepoadd.failed is true
 
 - name: Update apt
-  apt:
+  ansible.builtin.apt:
     update_cache: true
   when: dockergpgkey.changed is true or dockeraptrepoadd.changed is true
 
